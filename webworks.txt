@@ -1,3 +1,5 @@
+Part 1
+
 What is HTTP? hypertext transfer protocol, it is a method of transfering information, usually a html webpage, across a network.
 What is a URL? a shorthand way of requesting something from some server/location; it consists of the protocol used to request,
 the hostname of where you are requesting to and the resource you are trying to request.
@@ -17,3 +19,8 @@ somesite.com to the router, which checks the local DNS server to resolve the hos
 after resolving the ip address, the request is sent to that ip address for the resource some/page.html. somesite.com will return a response,
 that may or may not contain some/page.html depending on the response code/if it could find it. the browser then interprets the body of the response,
 and tries to render it. if there are additional styles or scripts in the html, the browser will request that content as well, and finally render the page.
+
+Part 2
+curl -H "Accept: text/plain" "https://icanhazdadjoke.com/search?term=pirate"
+-H specifies headers, I want just the plain text jokes of the resulting search.
+icanhazdadjoke.com ip address was 172.67.211.64

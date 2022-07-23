@@ -15,3 +15,10 @@ async function giphyrequest(q){
 
 const imgdiv = document.getElementById('imgdiv');
 const searchform = document.getElementById('searchform');
+searchform.addEventListener('submit', function(e){
+    e.preventDefault();
+    const imgurl = giphyrequest(e.target['q']);
+    const newimg = document.createElement('img');
+    newimg.src = imgurl;
+    imgdiv.append(newimg);
+});

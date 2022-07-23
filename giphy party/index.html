@@ -14,19 +14,19 @@
     crossorigin="anonymous"></script>
 </head>
 
-<body>
-  <nav class="navbar navbar-dark bg-dark">
+<body class="bg-secondary py-2">
+  <nav class="navbar navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">Giphy Party</a>
-    <button class="btn btn-danger" id="rmbtn">Remove Images</button>
     <form class="form-inline" id="searchform">
       <input class="form-control" type="search" name="q">
       <input class="form-control" type="submit" value="Search Giphy!">
     </form>
   </nav>
-  <div class="container-fluid">
+  <div class="container-fluid py-5">
     <div class="row" id="imgdiv">
-      <div class="col-8">
-      </div>
+    </div>
+    <div class="row">
+      <button class="btn btn-danger btn-block fixed-bottom" id="rmbtn">Remove Images</button>
     </div>
   </div>
   <!-- <script src="https://code.jquery.com/jquery-3.2.1.js"></script> -->

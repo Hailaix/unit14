@@ -26,6 +26,10 @@ searchform.addEventListener('submit', async function(e){
     const imgurl = res.data.data[Math.floor(Math.random()*res.data.data.length)].images.original.url; //random gif url
     const newimg = document.createElement('img');
     newimg.src = imgurl;
+    newimg.classList.add('col-12', 'col-sm-6', 'col-lg-4', 'my-2');
+    // const divcol = document.createElement('div');
+    // divcol.classList.add('col-12', 'col-sm-6', 'col-lg-4');
+    // divcol
     imgdiv.append(newimg);
 });
 rmbtn.addEventListener('click', function(e){

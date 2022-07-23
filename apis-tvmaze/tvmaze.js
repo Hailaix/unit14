@@ -18,30 +18,23 @@
       }
  */
 async function searchShows(query) {
-  // TODO: Make an ajax request to the searchShows api.  Remove
-  // hard coded data.
-  const res = await axios.get("http://api.tvmaze.com/search/shows", { params: {q:query}});
-  console.log(res);
+  const res = await axios.get("http://api.tvmaze.com/search/shows", { params: { q: query } });
+  //console.log(res);
   const showlist = [];
-  //we want res.data.show[id, image[original], name, summary]
-  for (obj of res.data){
+  //we want res.data[show][id, image[original], name, summary]
+  for (obj of res.data) {
     const show = {
       id: obj.show.id,
       name: obj.show.name,
       summary: obj.show.summary,
-      image: obj.show.image.original
+      image: 'https://tinyurl.com/tv-missing'
     };
+    if(obj.show.image !== null){
+      show['image'] = obj.show.image.original;
+    }
     showlist.push(show);
   }
   return showlist;
-  // return [
-  //   {
-  //     id: 1767,
-  //     name: "The Bletchley Circle",
-  //     summary: "<p><b>The Bletchley Circle</b> follows the journey of four ordinary women with extraordinary skills that helped to end World War II.</p><p>Set in 1952, Susan, Millie, Lucy and Jean have returned to their normal lives, modestly setting aside the part they played in producing crucial intelligence, which helped the Allies to victory and shortened the war. When Susan discovers a hidden code behind an unsolved murder she is met by skepticism from the police. She quickly realises she can only begin to crack the murders and bring the culprit to justice with her former friends.</p>",
-  //     image: "http://static.tvmaze.com/uploads/images/medium_portrait/147/369403.jpg"
-  //   }
-  // ]
 }
 
 
@@ -58,6 +51,7 @@ function populateShows(shows) {
     let $item = $(
       `<div class="col-md-6 col-lg-3 Show" data-show-id="${show.id}">
          <div class="card" data-show-id="${show.id}">
+          <img class="card-img-top" src=${show.image}>
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
              <p class="card-text">${show.summary}</p>
@@ -76,7 +70,7 @@ function populateShows(shows) {
  *    - get list of matching shows and show in shows list
  */
 
-$("#search-form").on("submit", async function handleSearch (evt) {
+$("#search-form").on("submit", async function handleSearch(evt) {
   evt.preventDefault();
 
   let query = $("#search-query").val();
@@ -95,9 +89,18 @@ $("#search-form").on("submit", async function handleSearch (evt) {
  */
 
 async function getEpisodes(id) {
-  // TODO: get episodes from tvmaze
-  //       you can get this by making GET request to
-  //       http://api.tvmaze.com/shows/SHOW-ID-HERE/episodes
-
-  // TODO: return array-of-episode-info, as described in docstring above
+  const res = await axios.get(`http://api.tvmaze.com/shows/${id}/episodes`);
+  //console.log(res);
+  const episodes = [];
+  //we want res.data[episode][id, name, season, number]
+  for (episode of res.data) {
+    const tempisode = {
+      id: episode.id,
+      name: episode.name,
+      season: episode.season,
+      number: episode.number
+    }
+    episodes.push(tempisode);
+  }
+  return episodes;
 }

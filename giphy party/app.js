@@ -7,7 +7,7 @@ async function giphyrequest(q){
         q,
         api_key:"MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym", //hard coded because I think its the only one we have access to.
     }});
-    const returnurl = res.data.data[Math.floor(Math.random()*res.data.data.length)].url
+    const returnurl = res.data.data;
     console.log(returnurl);
     return returnurl;
 }
@@ -22,7 +22,7 @@ searchform.addEventListener('submit', async function(e){
         api_key:"MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym", //hard coded because I think its the only one we have access to.
     }});
     console.log(res);
-    const imgurl = res.data.data[Math.floor(Math.random()*res.data.data.length)].url; //random gif url
+    const imgurl = res.data.data[Math.floor(Math.random()*res.data.data.length)].images.original.url; //random gif url
     const newimg = document.createElement('img');
     newimg.src = imgurl;
     imgdiv.append(newimg);

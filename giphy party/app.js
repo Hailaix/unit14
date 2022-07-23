@@ -14,6 +14,7 @@ async function giphyrequest(q){
 
 const imgdiv = document.getElementById('imgdiv');
 const searchform = document.getElementById('searchform');
+const rmbtn = document.getElementById('rmbtn');
 
 searchform.addEventListener('submit', async function(e){
     e.preventDefault();
@@ -26,4 +27,7 @@ searchform.addEventListener('submit', async function(e){
     const newimg = document.createElement('img');
     newimg.src = imgurl;
     imgdiv.append(newimg);
+});
+rmbtn.addEventListener('click', function(e){
+    imgdiv.innerHTML = '';
 });

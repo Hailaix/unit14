@@ -22,20 +22,20 @@ async function searchShows(query) {
   //console.log(res);
   const showlist = [];
   //we want res.data[show][id, image[original], name, summary]
-  for (obj of res.data) {
+  for (let obj of res.data) {
     const show = {
       id: obj.show.id,
       name: obj.show.name,
       summary: obj.show.summary,
       image: 'https://tinyurl.com/tv-missing'
     };
-    if(obj.show.image !== null){
+    if (obj.show.image !== null) {
       show['image'] = obj.show.image.original;
     }
     showlist.push(show);
   }
   return showlist;
-}
+};
 
 
 
@@ -55,6 +55,7 @@ function populateShows(shows) {
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
              <p class="card-text">${show.summary}</p>
+             <button class="btn btn-success">Episodes</button>
            </div>
          </div>
        </div>
@@ -62,7 +63,7 @@ function populateShows(shows) {
 
     $showsList.append($item);
   }
-}
+};
 
 
 /** Handle search form submission:
@@ -93,7 +94,7 @@ async function getEpisodes(id) {
   //console.log(res);
   const episodes = [];
   //we want res.data[episode][id, name, season, number]
-  for (episode of res.data) {
+  for (let episode of res.data) {
     const tempisode = {
       id: episode.id,
       name: episode.name,
@@ -103,4 +104,34 @@ async function getEpisodes(id) {
     episodes.push(tempisode);
   }
   return episodes;
+};
+
+
+/** Populate the episodes list:
+ *     - given an array of episodes, add those episodes to the DOM
+ */
+function populateEpisodes(episodes) {
+  //show the episodes area if it is hidden
+  $("#episodes-area").show();
+  //grab the episodes list DOM element and empty it
+  const $episodelist = $('#episodes-list');
+  $episodelist.empty();
+  //fill the episodes list with new LIs of each episode
+  for (let episode of episodes) {
+    const $item = $(
+      `<li data-episode-id="${episode.id}">${episode.name} (season ${episode.season}, number ${episode.number})</li>`
+    );
+    $episodelist.append($item);
+  }
 }
+
+//handles clicks on a btn class element within shows-list
+$("#shows-list").on('click', '.btn', async function(e){
+  //from the target, find the closest element with the card class and get the data element show-id
+  const showid = $(e.target).closest('.card').data('show-id');
+  console.log(showid);
+  //request the episode list of that id from the api
+  const elist = await getEpisodes(showid);
+  //finally populate the DOM with the list
+  populateEpisodes(elist);
+});
